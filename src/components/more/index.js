@@ -1,7 +1,8 @@
 import React from "react";
+import {Login} from "../admin/admin";
 const More = () => {
   return(
-    <h1>More Screen</h1>
+      <Login/>
   );
 };
 export default More;
