@@ -9,10 +9,12 @@ const Explore = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [type, setType] = useState("");
   const [pages, setPages] = useState(0);
+  const [timeoutID, setTimeoutID] = useState();
   const selectedMovieID = useSelector((state) => state);
 
   const getMovies = () => {
     const API_KEY = "93a17f12";
+    console.log("Get Movies Hit");
     axios
       .get(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}`)
       .then((res) => res.data)
@@ -23,12 +25,30 @@ const Explore = () => {
       });
   };
 
+  const debounce = (cb, delay = 1000) => {
+    return (...args) => {
+      clearTimeout(timeoutID);
+      setTimeoutID(
+        setTimeout(() => {
+          cb(...args);
+        }, delay)
+      );
+    };
+  };
+
+  const updateDebounceText = debounce(getMovies);
+
+  const processChange = (e) => {
+    setSearchTerm(e.target.value);
+    updateDebounceText();
+  };
+
   return (
     <div className="row">
       <div className="col-6">
         <button onClick={getMovies}>Get Data</button>
 
-        <input onChange={(e) => setSearchTerm(e.target.value)} />
+        <input onKeyUp={processChange} />
 
         {movieData &&
           movieData.map((movie) => (

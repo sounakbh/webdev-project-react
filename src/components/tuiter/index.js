@@ -24,7 +24,6 @@ import { Provider, useSelector } from "react-redux";
 const store = createStore(movieidReducer);
 
 function Tuiter() {
-  // const movieID = useSelector((state) => state);
   return (
     <Provider store={store}>
       <HashRouter>
@@ -47,7 +46,10 @@ function Tuiter() {
                 <Route path="/messages" element={<Messages />} />
                 <Route path="/bookmarks" element={<Bookmarks />} />
                 <Route path="/lists" element={<Lists />} />
-                <Route path="/public-profile/:uid" element={<PublicProfile/>}/>
+                <Route
+                  path="/public-profile/:uid"
+                  element={<PublicProfile />}
+                />
                 <Route path="/profile/*" element={<Profile />} />
                 <Route path="/profile/edit" element={<EditProfile />} />
                 <Route path="/more" element={<More />} />
