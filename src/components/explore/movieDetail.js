@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 const MovieDetail = ({ movieID }) => {
   const [movieDetails, setMovieDetails] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const API_KEY = "93a17f12";
@@ -13,14 +15,17 @@ const MovieDetail = ({ movieID }) => {
         console.log(data);
         setMovieDetails(data);
       });
-    // return () => {
-    //   setMovieDetails({});
-    // };
   }, [movieID]);
 
   return movieDetails && movieID ? (
-    <div className="card mb-3">
+    <div className="card mb-3 shadow">
       <div className="card-body">
+        <i
+          onClick={() => dispatch({ type: "update-movie-id", movieID: "" })}
+          className="fa fa-times"
+          aria-hidden="true"
+        ></i>
+
         <h5 className="card-title text-center">{movieDetails.Title}</h5>
         <h6 className="card-subtitle text-muted">
           Starring: {movieDetails.Actors}
@@ -37,15 +42,6 @@ const MovieDetail = ({ movieID }) => {
           IMDB Rating: {movieDetails.imdbRating}
         </li>
       </ul>
-      <div className="card-body">
-        <a href="#" className="card-link">
-          Card link
-        </a>
-        <a href="#" className="card-link">
-          Another link
-        </a>
-      </div>
-      <div className="card-footer text-muted">2 days ago</div>
     </div>
   ) : (
     <></>
