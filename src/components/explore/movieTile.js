@@ -8,24 +8,32 @@ const MovieTile = ({ movie }) => {
   };
 
   return (
-    <>
-      <div className="card mb-3 text-center" style={{ maxWidth: "70%" }}>
-        <div className="card-body">
-          <h5 className="card-title">{movie.Title}</h5>
-        </div>
-        <div className="card-body">
-          <img className="img-fluid" src={movie.Poster} />
-        </div>
-        <div className="card-body">
+    <div
+      className="row shadow rounded"
+      style={{
+        width: "45%",
+        margin: "5px",
+        padding: "5px",
+      }}
+    >
+      <div className="col-4">
+        <img className="img-fluid" src={movie.Poster} />
+      </div>
+      <div className="col-8">
+        <small>
+          {movie.Title} <b>({movie.Year})</b>
+        </small>
+        <div>
           <button
             onClick={setDetailsHandler}
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary btn-sm"
           >
             Learn More
           </button>
-          &nbsp;
-          <button type="button" className="btn btn-outline-primary">
+          <br />
+          <br />
+          <button type="button" className="btn btn-outline-primary btn-sm">
             <i
               style={{ color: "green" }}
               className="fa fa-thumbs-up"
@@ -33,7 +41,7 @@ const MovieTile = ({ movie }) => {
             ></i>
           </button>
           &nbsp;
-          <button type="button" className="btn btn-outline-primary">
+          <button type="button" className="btn btn-outline-primary btn-sm">
             <i
               style={{ color: "red" }}
               className="fa fa-thumbs-down"
@@ -41,12 +49,12 @@ const MovieTile = ({ movie }) => {
             ></i>
           </button>
           &nbsp;
-          <button type="button" className="btn btn-outline-primary">
+          <button type="button" className="btn btn-outline-primary btn-sm">
             <i className="fa fa-bookmark" aria-hidden="true"></i>
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
