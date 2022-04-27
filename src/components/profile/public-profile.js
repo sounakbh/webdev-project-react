@@ -11,16 +11,16 @@ const PublicProfile = () => {
     email: "sounakbh@gmail.com",
     firstName: "Sounak",
     lastName: "Bhattacharya",
-    profilePhoto: "../../..//",
-    // headerImage: string,
+    profilePhoto: "../../../images/day1-ipod.png",
+    headerImage: "../../../images/nasa-profile-header.jpg",
     // biography: string,
-    // dateOfBirth: Date,
+    dateOfBirth: "7th July, 1998",
     // accountType: AccountType,
     // maritalStatus: MaritalStatus,
-    // location: Location,
+    location: "Boston, MA",
     // salary: number,
   };
-  const location = useLocation();
+  //   const location = useLocation();
   const [profile, setProfile] = useState({});
   const { uid } = useParams();
   const findUserById = () =>
@@ -29,8 +29,8 @@ const PublicProfile = () => {
 
   return (
     <div className="row">
-      {console.log(profile)};<div className="col-4"></div>
-      <div className="col-4">
+      <div className="col-3"></div>
+      <div className="col-6">
         <div>
           <div className="row">
             <div
@@ -46,25 +46,38 @@ const PublicProfile = () => {
               &#8592;
             </div>
             <div className="col-11" style={{ fontSize: "0" }}>
-              <div style={{ fontSize: "30px", height: "35px", color: "white" }}>
-                <b>{profile.name}</b>
-              </div>{" "}
-              <br />
-              <div style={{ fontSize: "15px" }}>
-                {profile.totalTweets} Tweets
+              <div style={{ fontSize: "30px", height: "35px", color: "black" }}>
+                <b>
+                  {profile.firstName
+                    ? profile.firstName
+                    : defaultProfile.firstName + " "}
+                  {profile.lastName
+                    ? profile.lastName
+                    : defaultProfile.lastName}
+                </b>
               </div>
+              <br />
+              <div style={{ fontSize: "15px" }}>52 Tweets</div>
             </div>
           </div>
           <div className="row" style={{ position: "relative" }}>
             {/* Cover photo */}
             <img
-              src={profile.bannerPicture}
+              src={
+                profile.headerImage
+                  ? profile.headerImage
+                  : defaultProfile.headerImage
+              }
               style={{ height: "250px", objectFit: "cover" }}
               alt="Banner"
             />
             {/* Profile Photo */}
             <img
-              src={profile.profilePicture}
+              src={
+                profile.profilePhoto
+                  ? profile.profilePhoto
+                  : defaultProfile.profilePhoto
+              }
               alt=""
               style={{
                 width: "150px",
@@ -79,7 +92,7 @@ const PublicProfile = () => {
           <div className="mt-2" style={{ boder: "1px solid red" }}>
             <button
               type="button"
-              class="btn btn-block btn-outline-dark rounded-pill"
+              className="btn btn-block btn-outline-dark rounded-pill"
               style={{ float: "right" }}
             >
               <b>Edit Profile</b>
@@ -87,29 +100,35 @@ const PublicProfile = () => {
           </div>
           <div className="row" style={{ marginTop: "60px" }}>
             <h5>
-              <b>{profile.name}</b>
+              <b>
+                {profile.firstName
+                  ? profile.firstName
+                  : defaultProfile.firstName + " "}
+                {profile.lastName ? profile.lastName : defaultProfile.lastName}
+              </b>
             </h5>
             <span>@{profile.username}</span> <br /> <br />
-            <span style={{ color: "white" }}>{profile.bio}</span>
+            <span>
+              Faculty, Software Engineer, AI, Space, and renewable enthusiast.
+              Retuits and likes are not endorsements.{" "}
+            </span>
             <div style={{ marginTop: "10px" }}>
-              <i class="fa fa-map-marker" aria-hidden="true"></i>{" "}
-              {profile.location} &nbsp; &nbsp; &nbsp; &nbsp;
-              <i class="fa fa-birthday-cake" aria-hidden="true"></i>{" "}
-              {profile.dateOfBirth}
+              <i className="fa fa-map-marker" aria-hidden="true"></i>{" "}
+              {profile.location ? profile.location : defaultProfile.location}{" "}
               &nbsp; &nbsp; &nbsp; &nbsp;
-              <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{" "}
-              {profile.dateJoined}
+              <i className="fa fa-birthday-cake" aria-hidden="true"></i>{" "}
+              {profile.dateOfBirth
+                ? profile.dateOfBirth
+                : defaultProfile.dateOfBirth}
             </div>
             <span style={{ marginTop: "10px" }}>
-              <b style={{ color: "white" }}>{profile.followingCount}</b>{" "}
-              &nbsp;Following &nbsp; &nbsp;{" "}
-              <b style={{ color: "white" }}>{profile.followersCount}</b>{" "}
+              <b>325</b> &nbsp;Following &nbsp; &nbsp; <b>746</b>{" "}
               &nbsp;Followers{" "}
             </span>
           </div>
         </div>
       </div>
-      <div className="col-4"></div>
+      <div className="col-3"></div>
     </div>
   );
 };
