@@ -12,7 +12,6 @@ const MovieDetail = ({ movieID }) => {
       .get(`http://www.omdbapi.com/?i=${movieID}&apikey=${API_KEY}`)
       .then((res) => res.data)
       .then((data) => {
-        console.log(data);
         setMovieDetails(data);
       });
   }, [movieID]);
