@@ -16,7 +16,7 @@ import { Login } from "../profile/login";
 import Signup from "../profile/signup";
 import TuitScreen from "../tuits/tuit-screen";
 import PublicProfile from "../profile/public-profile";
-import MovieDetail from "../explore/movieDetail";
+import MovieDetail from "../movies/movieDetail";
 import movieidReducer from "../reducers/movieid-reducer";
 import { combineReducers, createStore } from "redux";
 import { Provider, useSelector } from "react-redux";

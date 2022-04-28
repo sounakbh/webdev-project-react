@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const MovieTile = ({ movie }) => {
+const MovieTile = ({ movie, likeMovie }) => {
   const dispatch = useDispatch();
   const setDetailsHandler = () => {
     dispatch({ type: "update-movie-id", movieID: movie.imdbID });
@@ -15,6 +15,7 @@ const MovieTile = ({ movie }) => {
         margin: "5px",
         padding: "5px",
       }}
+
     >
       <div className="col-4">
         <img className="img-fluid" src={movie.Poster} />
@@ -33,7 +34,7 @@ const MovieTile = ({ movie }) => {
           </button>
           <br />
           <br />
-          <button type="button" className="btn btn-outline-primary btn-sm">
+          <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => likeMovie(movie.imdbID)}>
             <i
               style={{ color: "green" }}
               className="fa fa-thumbs-up"

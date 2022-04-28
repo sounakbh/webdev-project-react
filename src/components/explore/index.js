@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import MovieTile from "./movieTile";
-import MovieDetail from "./movieDetail";
+import MovieTile from "../movies/movieTile";
+import MovieDetail from "../movies/movieDetail";
 import axios from "axios";
+import * as movieLikesService from "../../services/movies-likes-service";
 const Explore = () => {
   const [movieData, setMovieData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,6 +44,12 @@ const Explore = () => {
     updateDebounceText();
   };
 
+  const likeMovie = (movieID) =>
+      movieLikesService
+          .userLikesMovie("me", movieID)
+          //.then(refreshTuits)
+          .catch((e) => alert(e));
+
   return (
     <div className="row mt-2">
       <div className="col-7">
@@ -56,7 +63,7 @@ const Explore = () => {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {movieData &&
             movieData.map((movie) => (
-              <MovieTile key={movie.imdbID} movie={movie} />
+              <MovieTile key={movie.imdbID} movie={movie} likeMovie={likeMovie}/>
             ))}
         </div>
       </div>

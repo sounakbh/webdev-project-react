@@ -5,6 +5,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
   : "http://localhost:4000";
 const USERS_API = `${BASE_URL}/api/users`;
 const TUITS_API = `${BASE_URL}/api/tuits`;
+const MOVIES_API = `${BASE_URL}/api/movies`;
 
 const api = axios.create({
   withCredentials: true,
