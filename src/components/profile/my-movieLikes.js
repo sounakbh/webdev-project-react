@@ -1,22 +1,32 @@
 import * as service from "../../services/movies-likes-service";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import MovieTile from "../movies/movieTile";
 
 const MyMovieLikes = () => {
-    const [likedMovies, setLikedMovies] = useState([]);
-    const findMoviesILike = () =>
-        service.findAllMoviesLikedByUser("me")
-            .then((movies) => setLikedMovies(movies));
-    useEffect(findMoviesILike, []);
-    console.log(likedMovies);
+    const likedMovies = useSelector(state => state.movieLikeReducer);
+    const [movies, setMovies] = useState([]);
 
-    return(
+    useEffect(() => {
+        setMovies(state => []);
+        likedMovies.map(movieId => {
+            const API_KEY = "93a17f12";
+            axios
+                .get(`http://www.omdbapi.com/?i=${movieId}&apikey=${API_KEY}`)
+                .then((res) => setMovies(state => [...state, res.data]))
+        })
+    }, [likedMovies]);
+
+    return (
         <div>
-            {likedMovies &&
-                likedMovies.map((movie) => (
-                    <MovieTile key={movie.imdbID} movie={movie} refreshTuits={findMoviesILike}/>
-                ))
-            }
+            <h1>Likes Screen</h1>
+            <div className="container-fluid"  style={{ display: "flex", flexWrap: "wrap" }}>
+                {
+                    movies && movies.map(movie =>
+                        <MovieTile key ={movie.imdbID} liked={true} movie={movie}/>
+                    )
+                }
+            </div>
         </div>
     );
 };

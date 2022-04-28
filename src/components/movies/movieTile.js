@@ -1,11 +1,30 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userLikesMovie } from "../../services/movies-likes-service";
 
-const MovieTile = ({ movie, likeMovie }) => {
+const MovieTile = ({ movie, liked }) => {
   const dispatch = useDispatch();
   const setDetailsHandler = () => {
     dispatch({ type: "update-movie-id", movieID: movie.imdbID });
   };
+
+  const[likes_active, setLikes_active] = useState(liked);
+  useEffect(() => setLikes_active(likes_active), [likes_active]);
+
+  const setLikesHandler = () => {
+    if (!likes_active) {
+      userLikesMovie( "me", movie.imdbID)
+          .then(res => dispatch({type: "add_movieLike", movieId: res.data.movieId}));
+    } else {
+      userLikesMovie("me", movie.imdbID)
+          .then(res => {
+            if (res.status === 200) {
+              dispatch({type: "delete_movieLike", movieId: movie.imdbID})
+            }
+          });
+    }
+    setLikes_active(!likes_active);
+  }
 
   return (
     <div
@@ -34,7 +53,8 @@ const MovieTile = ({ movie, likeMovie }) => {
           </button>
           <br />
           <br />
-          <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => likeMovie(movie.imdbID)}>
+          <button type="button" className={"btn btn-outline-primary btn-sm "+ (likes_active ? 'active': '')}
+                  onClick={setLikesHandler}>
             <i
               style={{ color: "green" }}
               className="fa fa-thumbs-up"
