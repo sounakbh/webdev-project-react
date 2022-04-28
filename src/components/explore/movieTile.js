@@ -1,11 +1,36 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {createBookmark, deleteBookMark} from "../../services/bookmark-service";
+import {Toast} from "bootstrap";
 
-const MovieTile = ({ movie }) => {
+const MovieTile = ({ movie, bookmarked }) => {
   const dispatch = useDispatch();
   const setDetailsHandler = () => {
     dispatch({ type: "update-movie-id", movieID: movie.imdbID });
   };
+  
+  const[active, setActive] = useState(bookmarked);
+  
+  useEffect(() => setActive(active), [active]);
+  const userName = useSelector(state => state.userReducer.username);
+  
+  const setBookmarkHandler = () => {
+    if(userName.length > 0) {
+      if (!active) {
+        createBookmark(userName, movie.imdbID)
+            .then(res => dispatch({type: "add_bookmark", movieId: res.data.movieId}));
+      } else {
+        deleteBookMark(userName, movie.imdbID)
+            .then(res => {
+              if (res.status === 200) {
+                dispatch({type: "delete_bookmark", movieId: movie.imdbID})
+              }
+            });
+      }
+      setActive(!active);
+    } else {
+    }
+  }
 
   return (
     <div
@@ -24,13 +49,16 @@ const MovieTile = ({ movie }) => {
           {movie.Title} <b>({movie.Year})</b>
         </small>
         <div>
-          <button
-            onClick={setDetailsHandler}
-            type="button"
-            className="btn btn-outline-primary btn-sm"
-          >
-            Learn More
-          </button>
+          {
+            !movie.BoxOffice &&
+            <button
+                onClick={setDetailsHandler}
+                type="button"
+                className="btn btn-outline-primary btn-sm"
+            >
+              Learn More
+            </button>
+          }
           <br />
           <br />
           <button type="button" className="btn btn-outline-primary btn-sm">
@@ -49,7 +77,8 @@ const MovieTile = ({ movie }) => {
             ></i>
           </button>
           &nbsp;
-          <button type="button" className="btn btn-outline-primary btn-sm">
+          <button type="button" className={"btn btn-outline-primary btn-sm "+ (active ? 'active': '')}
+                  onClick={setBookmarkHandler}>
             <i className="fa fa-bookmark" aria-hidden="true"></i>
           </button>
         </div>

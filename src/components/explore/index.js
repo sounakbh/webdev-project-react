@@ -10,7 +10,8 @@ const Explore = () => {
   const [type, setType] = useState("");
   const [pages, setPages] = useState(0);
   const [timeoutID, setTimeoutID] = useState();
-  const selectedMovieID = useSelector((state) => state);
+  const selectedMovieID = useSelector((state) => state.movieidReducer);
+  const bookmarks = useSelector((state => state.bookmarkReducer));
 
   const getMovies = () => {
     const API_KEY = "93a17f12";
@@ -56,7 +57,7 @@ const Explore = () => {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {movieData &&
             movieData.map((movie) => (
-              <MovieTile key={movie.imdbID} movie={movie} />
+              <MovieTile key={movie.imdbID} movie={movie} bookmarked={bookmarks.includes(movie.imdbID)} />
             ))}
         </div>
       </div>

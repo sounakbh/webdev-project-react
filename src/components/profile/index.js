@@ -12,10 +12,13 @@ import TuitsAndReplies from "./tuits-and-replies";
 import Media from "./media";
 import MyLikes from "./my-likes";
 import MyDislikes from "./my-dislikes";
+import Bookmarks from "../bookmarks";
+import {useDispatch} from "react-redux";
 const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [profile, setProfile] = useState({});
+  const dispatch = useDispatch();
   useEffect(async () => {
     try {
       const user = await service.profile();
@@ -25,7 +28,11 @@ const Profile = () => {
     }
   }, []);
   const logout = () => {
-    service.logout().then(() => navigate("/login"));
+    service.logout().then(() => {
+      dispatch({type: "logout"});
+      dispatch({type: "clear_bookmark"})
+      navigate("/login")
+    });
   };
   return (
     <div className="ttr-profile">
@@ -101,6 +108,16 @@ const Profile = () => {
                 Dislikes
               </Link>
             </li>
+            <li className="nav-item">
+              <Link
+                  to="/profile/bookmarks"
+                  className={`nav-link ${
+                      location.pathname.indexOf("bookmarks") >= 0 ? "active" : ""
+                  }`}
+              >
+                Bookmarks
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -110,6 +127,7 @@ const Profile = () => {
         <Route path="/media" element={<Media />} />
         <Route path="/likes" element={<MyLikes />} />
         <Route path="/disLikes" element={<MyDislikes />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
       </Routes>
     </div>
   );
