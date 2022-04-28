@@ -3,12 +3,9 @@ import { useLocation, Link } from "react-router-dom";
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  // console.log(location.pathname);
   const links = [
-    // { label: "Tuiter", icon: "fa-square-t", path: "/tuiter" },
     { label: "Home", icon: "fa-home", path: "/home" },
     { label: "Explore", icon: "fa-hashtag", path: "/explore" },
-    { label: "Bookmarks", icon: "fa-bookmark", path: "/bookmarks" },
     { label: "Profile", icon: "fa-user", path: "/profile/mytuits" },
     { label: "More", icon: "fa-circle-ellipsis", path: "/more" },
     { label: "Login", icon: "fa-user", path: "/login" },
@@ -16,9 +13,6 @@ const Navbar = () => {
   ];
   return (
     <div className="ttr-navigation">
-      {/* <nav class="navbar navbar-light bg-light">
-        <span class="navbar-text">Navbar text with an inline element</span>
-      </nav> */}
       <nav className="navbar navbar-light bg-light">
         {links.map((link, ndx) => {
           return (

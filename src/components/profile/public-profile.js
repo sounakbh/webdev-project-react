@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./profile.css";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as service from "../../services/users-service";
 
 const PublicProfile = () => {
@@ -13,14 +13,10 @@ const PublicProfile = () => {
     lastName: "Bhattacharya",
     profilePhoto: "../../../images/day1-ipod.png",
     headerImage: "../../../images/nasa-profile-header.jpg",
-    // biography: string,
     dateOfBirth: "7th July, 1998",
-    // accountType: AccountType,
-    // maritalStatus: MaritalStatus,
     location: "Boston, MA",
-    // salary: number,
   };
-  //   const location = useLocation();
+
   const [profile, setProfile] = useState({});
   const { uid } = useParams();
   const findUserById = () =>
@@ -50,7 +46,8 @@ const PublicProfile = () => {
                 <b>
                   {profile.firstName
                     ? profile.firstName
-                    : defaultProfile.firstName + " "}
+                    : defaultProfile.firstName}{" "}
+                  &nbsp;
                   {profile.lastName
                     ? profile.lastName
                     : defaultProfile.lastName}
@@ -103,7 +100,8 @@ const PublicProfile = () => {
               <b>
                 {profile.firstName
                   ? profile.firstName
-                  : defaultProfile.firstName + " "}
+                  : defaultProfile.firstName}{" "}
+                &nbsp;
                 {profile.lastName ? profile.lastName : defaultProfile.lastName}
               </b>
             </h5>
@@ -118,7 +116,7 @@ const PublicProfile = () => {
               &nbsp; &nbsp; &nbsp; &nbsp;
               <i className="fa fa-birthday-cake" aria-hidden="true"></i>{" "}
               {profile.dateOfBirth
-                ? profile.dateOfBirth
+                ? profile.dateOfBirth.substring(0, 10)
                 : defaultProfile.dateOfBirth}
             </div>
             <span style={{ marginTop: "10px" }}>
