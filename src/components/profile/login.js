@@ -4,6 +4,7 @@ import {useState} from "react";
 import * as service from "../../services/security-service";
 import {useDispatch} from "react-redux";
 import {findAllBookMarks} from "../../services/bookmark-service";
+import {findAllMoviesLikedByUser} from "../../services/movies-likes-service";
 
 export const Login = () => {
     const [loginUser, setLoginUser] = useState({});
@@ -14,6 +15,7 @@ export const Login = () => {
             .then((user) => {
                 dispatch({type: 'login', username: user.username})
                 fetchBookmarks(user.username);
+                fetchMovieLikes(user.username);
             })
             .catch(e => alert(e));
     
@@ -26,6 +28,17 @@ export const Login = () => {
                 navigate('/profile/mytuits');
             })
     };
+
+    const fetchMovieLikes = (username) => {
+        findAllMoviesLikedByUser("me")
+            .then(res => {
+                if(res.status === 200){
+                    dispatch({type: "all_likes", likedMovies: res.data})
+                }
+                navigate('/profile/mytuits');
+            })
+    };
+
     return (
         <div>
             <h1>Login</h1>
