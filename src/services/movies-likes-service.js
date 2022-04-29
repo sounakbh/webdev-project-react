@@ -11,13 +11,13 @@ const api = axios.create({
 });
 
 export const findAllMoviesLikedByUser = (uid) =>
-    api.get(`${USERS_API}/${uid}/movies`).then((response) => response.data);
+    api.get(`${USERS_API}/${uid}/movies`).then((response) => response);
 
 export const findAllUsersThatLikedMovie = (mid) =>
-    api.get(`${MOVIES_API}/${mid}/likes`).then((response) => response.data);
+    api.get(`${MOVIES_API}/${mid}/likes`).then((response) => response);
 
 export const userLikesMovie = (uid, movieId) => {
     return api
         .put(`${MOVIES_API}/users/${uid}/likes/${movieId}`)
-        .then((response) => response.data);
+        .then((response) => response);
 };

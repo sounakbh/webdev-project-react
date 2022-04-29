@@ -1,15 +1,30 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
 import * as service from "../../services/security-service";
+import {findAllMoviesLikedByUser} from "../../services/movies-likes-service";
 
 export const Login = () => {
     const [loginUser, setLoginUser] = useState({});
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const login = () =>
         service.login(loginUser)
-            .then((user) => navigate('/profile/mytuits'))
-            .catch(e => alert(e));
+            .then((user) => {
+                fetchMovieLikes("me");
+            }).catch(e => alert(e));
+
+    const fetchMovieLikes = (username) => {
+        findAllMoviesLikedByUser("me")
+            .then(res => {
+                if(res.status === 200){
+                    dispatch({type: "all_likes", likedMovies: res.data})
+                }
+                navigate('/profile/mytuits');
+            })
+    };
+
     return (
         <div>
             <h1>Login</h1>

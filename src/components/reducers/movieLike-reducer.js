@@ -6,8 +6,9 @@ const movieLikeReducer = (state = initialState, action) => {
             return [...state, action.movieId];
         case 'delete_movieLike':
             return state.filter(val => val !== action.movieId);
-        case 'all_likes':
+        case 'all_likes':{
             return action.likedMovies;
+        }
         case 'clear_movieLike': return [];
         default:
             return state;

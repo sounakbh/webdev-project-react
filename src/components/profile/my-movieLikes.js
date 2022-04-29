@@ -1,7 +1,7 @@
-import * as service from "../../services/movies-likes-service";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import MovieTile from "../movies/movieTile";
+import axios from "axios";
 
 const MyMovieLikes = () => {
     const likedMovies = useSelector(state => state.movieLikeReducer);
@@ -23,7 +23,7 @@ const MyMovieLikes = () => {
             <div className="container-fluid"  style={{ display: "flex", flexWrap: "wrap" }}>
                 {
                     movies && movies.map(movie =>
-                        <MovieTile key ={movie.imdbID} liked={true} movie={movie}/>
+                        <MovieTile key={movie.imdbID} liked={true} movie={movie}/>
                     )
                 }
             </div>

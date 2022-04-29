@@ -14,11 +14,15 @@ const MovieTile = ({ movie, liked }) => {
   const setLikesHandler = () => {
     if (!likes_active) {
       userLikesMovie( "me", movie.imdbID)
-          .then(res => dispatch({type: "add_movieLike", movieId: res.data.movieId}));
+          .then(res => {
+            if(res.status === 200) {
+              dispatch({type: "add_movieLike", movieId: res.data.movieId})
+            }
+          });
     } else {
       userLikesMovie("me", movie.imdbID)
           .then(res => {
-            if (res.status === 200) {
+            if(res.status === 200) {
               dispatch({type: "delete_movieLike", movieId: movie.imdbID})
             }
           });
@@ -55,11 +59,18 @@ const MovieTile = ({ movie, liked }) => {
           <br />
           <button type="button" className={"btn btn-outline-primary btn-sm "+ (likes_active ? 'active': '')}
                   onClick={setLikesHandler}>
+            {!likes_active && (
             <i
               style={{ color: "green" }}
               className="fa fa-thumbs-up"
               aria-hidden="true"
-            ></i>
+            ></i>)}
+            {likes_active && (
+            <i
+                style={{ color: "white" }}
+                className="fa fa-thumbs-up"
+                aria-hidden="true"
+            ></i>)}
           </button>
           &nbsp;
           <button type="button" className="btn btn-outline-primary btn-sm">

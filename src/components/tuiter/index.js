@@ -18,11 +18,12 @@ import TuitScreen from "../tuits/tuit-screen";
 import PublicProfile from "../profile/public-profile";
 import MovieDetail from "../movies/movieDetail";
 import movieidReducer from "../reducers/movieid-reducer";
+import movieLikeReducer from "../reducers/movieLike-reducer";
 import { combineReducers, createStore } from "redux";
 import { Provider, useSelector } from "react-redux";
 import Navbar from "../navigation/navbar";
 
-const store = createStore(movieidReducer);
+const store = createStore(combineReducers({movieidReducer, movieLikeReducer}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 function Tuiter() {
   return (
