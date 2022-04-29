@@ -18,6 +18,7 @@ import TuitScreen from "../tuits/tuit-screen";
 import PublicProfile from "../profile/public-profile";
 import MovieDetail from "../explore/movieDetail";
 import movieidReducer from "../reducers/movieid-reducer";
+import movieLikeReducer from "../reducers/movieLike-reducer";
 import { combineReducers, createStore } from "redux";
 import { Provider, useSelector } from "react-redux";
 import Navbar from "../navigation/navbar";
@@ -26,7 +27,7 @@ import userReducer from "../reducers/user-reducer";
 import MovieDetailPage from "../explore/movieDetailPage";
 
 const store = createStore(
-  combineReducers({ movieidReducer, bookmarkReducer, userReducer }),
+  combineReducers({ movieidReducer, bookmarkReducer, userReducer, movieLikeReducer}),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
