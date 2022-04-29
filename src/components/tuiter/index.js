@@ -18,13 +18,17 @@ import TuitScreen from "../tuits/tuit-screen";
 import PublicProfile from "../profile/public-profile";
 import MovieDetail from "../explore/movieDetail";
 import movieidReducer from "../reducers/movieid-reducer";
-import {combineReducers, createStore} from "redux";
+import { combineReducers, createStore } from "redux";
 import { Provider, useSelector } from "react-redux";
 import Navbar from "../navigation/navbar";
 import bookmarkReducer from "../reducers/bookmark-reducer";
 import userReducer from "../reducers/user-reducer";
+import MovieDetailPage from "../explore/movieDetailPage";
 
-const store = createStore(combineReducers({movieidReducer, bookmarkReducer, userReducer}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  combineReducers({ movieidReducer, bookmarkReducer, userReducer }),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function Tuiter() {
   return (
@@ -42,6 +46,10 @@ function Tuiter() {
               <Route path="/home" element={<Home />} />
               <Route path="/home/:uid" element={<Home />} />
               <Route path="/explore" element={<Explore />} />
+              <Route
+                path="/explore/movie/:movieID"
+                element={<MovieDetailPage />}
+              />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/bookmarks" element={<Bookmarks />} />
