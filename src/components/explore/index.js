@@ -11,17 +11,30 @@ const Explore = () => {
   const [pages, setPages] = useState(0);
   const [timeoutID, setTimeoutID] = useState();
   const selectedMovieID = useSelector((state) => state.movieidReducer);
-  const bookmarks = useSelector((state => state.bookmarkReducer));
+  const bookmarks = useSelector((state) => state.bookmarkReducer);
+  const API_KEY = "93a17f12";
 
   const getMovies = () => {
-    const API_KEY = "93a17f12";
-    console.log("Get Movies Hit");
+    const request_url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}&page=1`;
     axios
-      .get(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}`)
+      .get(request_url)
       .then((res) => res.data)
       .then((data) => {
         const pages = Math.ceil(data.totalResults / 10);
         setPages(pages);
+        setMovieData(data.Search);
+      });
+  };
+
+  const getNextPage = (pageNumber) => {
+    setSearchTerm(searchTerm.replace(" ", "%20"));
+    const request_url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=${API_KEY}&page=${pageNumber}`;
+    console.log(request_url);
+
+    axios
+      .get(request_url)
+      .then((res) => res.data)
+      .then((data) => {
         setMovieData(data.Search);
       });
   };
@@ -57,7 +70,11 @@ const Explore = () => {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {movieData &&
             movieData.map((movie) => (
-              <MovieTile key={movie.imdbID} movie={movie} bookmarked={bookmarks.includes(movie.imdbID)} />
+              <MovieTile
+                key={movie.imdbID}
+                movie={movie}
+                bookmarked={bookmarks.includes(movie.imdbID)}
+              />
             ))}
         </div>
       </div>
