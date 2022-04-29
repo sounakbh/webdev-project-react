@@ -5,8 +5,6 @@ import MovieTile from "./movieTile";
 import MovieDetail from "./movieDetail";
 import axios from "axios";
 
-import { ButtonGroup, Button } from "react-bootstrap";
-
 const Explore = () => {
   const [movieData, setMovieData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
