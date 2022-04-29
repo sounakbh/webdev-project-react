@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const MovieDetail = ({ movieID }) => {
   const [movieDetails, setMovieDetails] = useState({});
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,6 +20,17 @@ const MovieDetail = ({ movieID }) => {
 
   return movieDetails && movieID ? (
     <div className="card mb-3 shadow">
+      <div className="text-right">
+        <div className="card-header">
+          <button
+            onClick={() => navigate(`/explore/movie/${movieID}`)}
+            type="button"
+            className="btn btn-outline-primary btn-sm"
+          >
+            Learn More
+          </button>
+        </div>
+      </div>
       <div className="card-body">
         <i
           onClick={() => dispatch({ type: "update-movie-id", movieID: "" })}

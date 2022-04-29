@@ -21,6 +21,7 @@ import movieidReducer from "../reducers/movieid-reducer";
 import { combineReducers, createStore } from "redux";
 import { Provider, useSelector } from "react-redux";
 import Navbar from "../navigation/navbar";
+import MovieDetailPage from "../explore/movieDetailPage";
 
 const store = createStore(movieidReducer);
 
@@ -40,6 +41,10 @@ function Tuiter() {
               <Route path="/home" element={<Home />} />
               <Route path="/home/:uid" element={<Home />} />
               <Route path="/explore" element={<Explore />} />
+              <Route
+                path="/explore/movie/:movieID"
+                element={<MovieDetailPage />}
+              />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/bookmarks" element={<Bookmarks />} />
