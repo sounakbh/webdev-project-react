@@ -1,74 +1,133 @@
 import React, { useEffect, useState } from "react";
 import "./profile.css";
-import {
-    useNavigate,
-    useLocation, useParams,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as service from "../../services/users-service";
 
 const PublicProfile = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [profileDetails, setProfileDetails] = useState({});
-    const {uid} = useParams();
-    const findUserById = () =>
-        service.findUserById(uid)
-            .then(profileDetails => setProfileDetails(profileDetails));
-    useEffect(findUserById, []);
+  const navigate = useNavigate();
+  const defaultProfile = {
+    username: "sounakbh",
+    password: "hellopassword",
+    email: "sounakbh@gmail.com",
+    firstName: "Sounak",
+    lastName: "Bhattacharya",
+    profilePhoto: "../../../images/day1-ipod.png",
+    headerImage: "../../../images/nasa-profile-header.jpg",
+    dateOfBirth: "7th July, 1998",
+    location: "Boston, MA",
+  };
 
-    return (
-        <div className="row">
-            <div className="row">
-                <div className="col-sm-1 col-md-1 col-lg-1">
-                    <i className="fa-solid fa-arrow-left"></i>
-                </div>
-                <div className="col-sm-11 col-md-11 col-lg-11">
-                    <div className="row">
-                        <h5 className="p-0 m-0"><b>{profileDetails.name ? profileDetails.name : "New User Name"}</b></h5>
-                    </div>
-                    <div className="row">
-                        {profileDetails.name ? profileDetails.name : "New User Name"}
-                    </div>
-                </div>
+  const [profile, setProfile] = useState({});
+  const { uid } = useParams();
+  const findUserById = () =>
+    service.findUserById(uid).then((profile) => setProfile(profile));
+  useEffect(findUserById, []);
+
+  return (
+    <div className="row">
+      <div className="col-3"></div>
+      <div className="col-6">
+        <div>
+          <div className="row">
+            <div
+              className="col-1"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: "30px",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/tuiter/")}
+            >
+              &#8592;
             </div>
-            <div className="row wd-banner-div">
-                <div className="col-12">
-                    <img className="wd-cover-img p-0" src={profileDetails.bannerPicture ? profileDetails.bannerPicture : "../../../images/movies/default-banner.png"}/>
-                    <div >
-                        <img className="wd-profile-img p-0" src={profileDetails.profilePicture ? profileDetails.profilePicture : "../../../images/movies/default-profile.png" }/>
-                    </div>
-                </div>
+            <div className="col-11" style={{ fontSize: "0" }}>
+              <div style={{ fontSize: "30px", height: "35px", color: "black" }}>
+                <b>
+                  {profile.firstName
+                    ? profile.firstName
+                    : defaultProfile.firstName}{" "}
+                  &nbsp;
+                  {profile.lastName
+                    ? profile.lastName
+                    : defaultProfile.lastName}
+                </b>
+              </div>
+              <br />
+              <div style={{ fontSize: "15px" }}>52 Tweets</div>
             </div>
-            <div className="row ps-4 pt-3">
-                <div className="row"><h4 className="p-0"><b>{profileDetails.name ? profileDetails.name : "New User Name"}</b></h4></div>
-                <div className="row">@{profileDetails.username}</div>
-                <div className="row text-white">{profileDetails.bio ? profileDetails.bio : "Default Bio"}</div>
-                <div className="wd-profile-details-panel">
-                    <div className="wd-profile-item">
-                        <p className="wd-profile-item-icon"><a href="#"><i className="fa-regular fa-compass"></i></a></p>
-                        <p>{profileDetails.location ? profileDetails.location : 'New User Location'}</p>
-                    </div>
-                    <div className="wd-profile-item">
-                        <p className="wd-profile-item-icon"><a href="#"><i className="fa-solid fa-cake-candles"></i></a></p>
-                        <p>{profileDetails.dateOfBirth ? profileDetails.dateOfBirth : '01/01/2001'}</p>
-                    </div>
-                    <div className="wd-profile-item">
-                        <p className="wd-profile-item-icon"><a href="#"><i className="fa-regular fa-calendar-days"></i></a></p>
-                        <p>Joined {profileDetails.dateJoined ? profileDetails.dateJoined : '01/01/2001'}</p>
-                    </div>
-                </div>
-                <div className="wd-follower-details-panel">
-                    <div className="wd-profile-item">
-                        <p className="wd-profile-item-icon"><b>{profileDetails.followingCount  ? profileDetails.followingCount : 0}</b></p>
-                        <p className="wd-profile-item-icon">Following</p>
-                    </div>
-                    <div className="wd-profile-item">
-                        <p className="wd-profile-item-icon"><b>{profileDetails.followersCount ? profileDetails.followersCount : 0}</b></p>
-                        <p className="wd-profile-item-icon">Followers</p>
-                    </div>
-                </div>
+          </div>
+          <div className="row" style={{ position: "relative" }}>
+            {/* Cover photo */}
+            <img
+              src={
+                profile.headerImage
+                  ? profile.headerImage
+                  : defaultProfile.headerImage
+              }
+              style={{ height: "250px", objectFit: "cover" }}
+              alt="Banner"
+            />
+            {/* Profile Photo */}
+            <img
+              src={
+                profile.profilePhoto
+                  ? profile.profilePhoto
+                  : defaultProfile.profilePhoto
+              }
+              alt=""
+              style={{
+                width: "150px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                position: "absolute",
+                bottom: -55,
+                left: 20,
+              }}
+            />
+          </div>
+          <div className="mt-2" style={{ boder: "1px solid red" }}>
+            <button
+              type="button"
+              className="btn btn-block btn-outline-dark rounded-pill"
+              style={{ float: "right" }}
+            >
+              <b>Edit Profile</b>
+            </button>
+          </div>
+          <div className="row" style={{ marginTop: "60px" }}>
+            <h5>
+              <b>
+                {profile.firstName
+                  ? profile.firstName
+                  : defaultProfile.firstName}{" "}
+                &nbsp;
+                {profile.lastName ? profile.lastName : defaultProfile.lastName}
+              </b>
+            </h5>
+            <span>@{profile.username}</span> <br /> <br />
+            <span>
+              Faculty, Software Engineer, AI, Space, and renewable enthusiast.
+              Retuits and likes are not endorsements.{" "}
+            </span>
+            <div style={{ marginTop: "10px" }}>
+              <i className="fa fa-map-marker" aria-hidden="true"></i>{" "}
+              {profile.location ? profile.location : defaultProfile.location}{" "}
+              &nbsp; &nbsp; &nbsp; &nbsp;
+              <i className="fa fa-birthday-cake" aria-hidden="true"></i>{" "}
+              {profile.dateOfBirth
+                ? profile.dateOfBirth.substring(0, 10)
+                : defaultProfile.dateOfBirth}
             </div>
+            <span style={{ marginTop: "10px" }}>
+              <b>325</b> &nbsp;Following &nbsp; &nbsp; <b>746</b>{" "}
+              &nbsp;Followers{" "}
+            </span>
+          </div>
         </div>
-    );
+      </div>
+      <div className="col-3"></div>
+    </div>
+  );
 };
 export default PublicProfile;
