@@ -39,22 +39,26 @@ const MovieTile = ({ movie, bookmarked, liked}) => {
   useEffect(() => setLikes_active(likes_active), [likes_active]);
 
   const setLikesHandler = () => {
-    if (!likes_active) {
-      userLikesMovie( "me", movie.imdbID)
-          .then(res => {
-            if(res.status === 200) {
-              dispatch({type: "add_movieLike", movieId: res.data.movieId})
-            }
-          });
-    } else {
-      userLikesMovie("me", movie.imdbID)
-          .then(res => {
-            if(res.status === 200) {
-              dispatch({type: "delete_movieLike", movieId: movie.imdbID})
-            }
-          });
+    if (userName.length > 0) {
+      if (!likes_active) {
+        userLikesMovie("me", movie.imdbID)
+            .then(res => {
+              if (res.status === 200) {
+                dispatch({type: "add_movieLike", movieId: res.data.movieId})
+              }
+            });
+      } else {
+        userLikesMovie("me", movie.imdbID)
+            .then(res => {
+              if (res.status === 200) {
+                dispatch({type: "delete_movieLike", movieId: movie.imdbID})
+              }
+            });
+      }
+      setLikes_active(!likes_active);
+    }else{
+
     }
-    setLikes_active(!likes_active);
   };
 
   return (
