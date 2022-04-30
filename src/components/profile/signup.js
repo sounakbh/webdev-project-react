@@ -1,15 +1,17 @@
 import { useState } from "react";
 import * as service from "../../services/security-service";
 import { useNavigate } from "react-router-dom";
+import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 
 const Signup = () => {
-  const [newUser, setNewUser] = useState({});
+  const [newUser, setNewUser] = useState({roleId: 1});
   const navigate = useNavigate();
-  const signup = () =>
-    service
-      .register(newUser)
-      .then(() => navigate("/home"))
-      .catch((e) => alert(e));
+  const signup = () => {
+      service
+          .register(newUser)
+          .then(() => navigate("/home"))
+          .catch((e) => alert(e));
+  }
   return (
     <div className="row mt-2">
       <div className="col-3"></div>
@@ -56,6 +58,19 @@ const Signup = () => {
           onChange={(e) => setNewUser({ ...newUser, location: e.target.value })}
           placeholder="Location"
         />
+              <FormLabel id="demo-radio-buttons-group-label">What would you like to sign up as?</FormLabel>
+              <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue={1}
+                  name="radio-buttons-group"
+                  onChange={event => {
+                      setNewUser({...newUser, roleId: event.target.value})
+                  }}
+              >
+                  <FormControlLabel value={0} control={<Radio />} label="Basic" />
+                  <FormControlLabel value={1} control={<Radio />} label="Premium" />
+                  <FormControlLabel value={2} control={<Radio />} label="Admin" />
+              </RadioGroup>
         <button onClick={signup} className="btn btn-primary mb-5">
           Signup
         </button>

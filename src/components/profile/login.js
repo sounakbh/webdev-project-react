@@ -13,7 +13,7 @@ export const Login = () => {
     const login = () =>
         service.login(loginUser)
             .then((user) => {
-                dispatch({type: 'login', username: user.username})
+                dispatch({type: 'login', username: user.username, roleId: user.roleId})
                 fetchBookmarks(user.username);
                 fetchMovieLikes(user.username);
             })

@@ -11,7 +11,6 @@ const MovieTile = ({ movie, bookmarked, liked}) => {
   const setDetailsHandler = () => {
     dispatch({ type: "update-movie-id", movieID: movie.imdbID });
   };
-
   const [active, setActive] = useState(bookmarked);
 
   useEffect(() => setActive(active), [active]);
