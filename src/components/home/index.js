@@ -25,17 +25,16 @@ const Home = () => {
           <h3>
             Top Liked <i className="fa fa-thumbs-up" aria-hidden="true"></i>
           </h3>
-
-          {dislikedMovies &&
-            dislikedMovies.map((movie) => <MovieCard movie={movie} />)}
+          {likedMovies &&
+            likedMovies.map((movie) => <MovieCard movie={movie} />)}
         </div>
         <div className="col-6 text-center">
           <h3>
             Top Disliked{" "}
             <i className="fa fa-thumbs-down" aria-hidden="true"></i>
           </h3>
-          {likedMovies &&
-            likedMovies.map((movie) => <MovieCard movie={movie} />)}
+          {dislikedMovies &&
+            dislikedMovies.map((movie) => <MovieCard movie={movie} />)}
         </div>
       </div>
     </div>
