@@ -11,7 +11,7 @@ const api = axios.create({
 });
 
 export const findAllMoviesLikedByUser = (uid) =>
-    api.get(`${USERS_API}/${uid}/movies`).then((response) => response);
+    api.get(`${USERS_API}/${uid}/movies/likes`).then((response) => response);
 
 export const findAllUsersThatLikedMovie = (mid) =>
     api.get(`${MOVIES_API}/${mid}/likes`).then((response) => response);
