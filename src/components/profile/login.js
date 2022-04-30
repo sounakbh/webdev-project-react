@@ -5,6 +5,7 @@ import * as service from "../../services/security-service";
 import {useDispatch} from "react-redux";
 import {findAllBookMarks} from "../../services/bookmark-service";
 import {findAllMoviesLikedByUser} from "../../services/movies-likes-service";
+import {findAllMoviesDislikedByUser} from "../../services/movies-dislikes-service";
 
 export const Login = () => {
     const [loginUser, setLoginUser] = useState({});
@@ -16,6 +17,7 @@ export const Login = () => {
                 dispatch({type: 'login', username: user.username, roleId: user.roleId})
                 fetchBookmarks(user.username);
                 fetchMovieLikes(user.username);
+                fetchMovieDislikes(user.username);
             })
             .catch(e => alert(e));
     
@@ -34,6 +36,16 @@ export const Login = () => {
             .then(res => {
                 if(res.status === 200){
                     dispatch({type: "all_likes", likedMovies: res.data})
+                }
+                navigate('/profile/mytuits');
+            })
+    };
+
+    const fetchMovieDislikes = (username) => {
+        findAllMoviesDislikedByUser("me")
+            .then(res => {
+                if(res.status === 200){
+                    dispatch({type: "all_dislikes", dislikedMovies: res.data})
                 }
                 navigate('/profile/mytuits');
             })

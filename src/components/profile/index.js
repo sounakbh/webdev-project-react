@@ -14,6 +14,7 @@ import MyLikes from "./my-likes";
 import MyDislikes from "./my-dislikes";
 import Bookmarks from "../bookmarks";
 import MyMovieLikes from "./my-movieLikes";
+import MyMovieDislikes from "./my-movieDislikes";
 import {useDispatch} from "react-redux";
 const Profile = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Profile = () => {
       dispatch({type: "logout"});
       dispatch({type: "clear_bookmark"})
       dispatch({type: "clear_movieLike"})
+      dispatch({type: "clear_movieDislike"})
       navigate("/login")
     });
   };
@@ -102,9 +104,9 @@ const Profile = () => {
             </li>
             <li className="nav-item">
               <Link
-                to="/profile/disLikes"
+                to="/profile/movie-dislikes"
                 className={`nav-link ${
-                  location.pathname.indexOf("disLikes") >= 0 ? "active" : ""
+                  location.pathname.indexOf("movie-dislikes") >= 0 ? "active" : ""
                 }`}
               >
                 Dislikes
@@ -130,6 +132,7 @@ const Profile = () => {
         <Route path="/likes" element={<MyLikes />} />
         <Route path="/disLikes" element={<MyDislikes />} />
         <Route path="/movie-likes" element={<MyMovieLikes />} />
+        <Route path="/movie-dislikes" element={<MyMovieDislikes />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
       </Routes>
     </div>

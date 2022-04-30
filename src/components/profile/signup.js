@@ -6,17 +6,52 @@ import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/
 const Signup = () => {
   const [newUser, setNewUser] = useState({roleId: 1});
   const navigate = useNavigate();
+
+  const validateFields = () => {
+    const {
+      firstName,
+      lastName,
+      username,
+      password,
+      email,
+      dateOfBirth,
+      location,
+    } = newUser;
+    if (
+      firstName == undefined ||
+      firstName === "" ||
+      lastName == undefined ||
+      lastName == "" ||
+      username == undefined ||
+      username == "" ||
+      password == undefined ||
+      password == "" ||
+      email == undefined ||
+      email == "" ||
+      dateOfBirth == undefined ||
+      dateOfBirth == "" ||
+      location == undefined ||
+      location == ""
+    ) {
+      alert("Some fields are missing!");
+      return false;
+    }
+    return true;
+  };
+
   const signup = () => {
-      service
-          .register(newUser)
-          .then(() => navigate("/home"))
-          .catch((e) => alert(e));
-  }
+    if (!validateFields()) return;
+    return service
+      .register(newUser)
+      .then(() => navigate("/home"))
+      .catch((e) => alert(e));
+  };
   return (
     <div className="row mt-2">
       <div className="col-3"></div>
       <div className="col-6">
         <input
+          required
           className="mb-2 form-control"
           onChange={(e) =>
             setNewUser({ ...newUser, firstName: e.target.value })
