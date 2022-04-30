@@ -18,23 +18,23 @@ const MovieTile = ({movie, bookmarked, liked, disliked}) => {
     useEffect(() => setActive(active), [active]);
     const userName = useSelector((state) => state.userReducer.username);
 
-    const setBookmarkHandler = () => {
-        if (userName.length > 0) {
-            if (!active) {
-                createBookmark(userName, movie.imdbID).then((res) =>
-                    dispatch({type: "add_bookmark", movieId: res.data.movieId})
-                );
-            } else {
-                deleteBookMark(userName, movie.imdbID).then((res) => {
-                    if (res.status === 200) {
-                        dispatch({type: "delete_bookmark", movieId: movie.imdbID});
-                    }
-                });
-            }
-            setActive(!active);
-        } else {
-        }
-    };
+  const setBookmarkHandler = () => {
+    if (userName.length > 0) {
+      if (!active) {
+        createBookmark(userName, movie.imdbID).then((res) =>
+          dispatch({ type: "add_bookmark", movieId: res.data.movieId })
+        );
+      } else {
+        deleteBookMark(userName, movie.imdbID).then((res) => {
+          if (res.status === 200) {
+            dispatch({ type: "delete_bookmark", movieId: movie.imdbID });
+          }
+        });
+      }
+      setActive(!active);
+    } else {
+    }
+  };
 
     const [likes_active, setLikes_active] = useState(liked);
     useEffect(() => setLikes_active(likes_active), [likes_active]);

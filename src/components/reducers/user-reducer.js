@@ -1,16 +1,19 @@
 const initialState = {
-	username: ''
+	username: '',
+	roleId: undefined
 }
 
 const userReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case 'login':
 			return {
-				username: action.username
+				username: action.username,
+				roleId: action.roleId
 			};
 		case 'logout':
 			return {
-				username: ''
+				username: '',
+				roleId: undefined
 			};
 		default: return state;
 	}
