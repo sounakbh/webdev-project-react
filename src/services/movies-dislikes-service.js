@@ -5,6 +5,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
     : "http://localhost:4000";
 const USERS_API = `${BASE_URL}/api/users`;
 const MOVIES_API = `${BASE_URL}/api/movies`;
+const DISLIKES_API = `${BASE_URL}/api/dislikes`;
 
 const api = axios.create({
     withCredentials: true,
@@ -21,3 +22,5 @@ export const userDislikesMovie = (uid, movieId) => {
         .put(`${MOVIES_API}/users/${uid}/dislikes/${movieId}`)
         .then((response) => response);
 };
+export const findTopDislikedMovies = () =>
+    api.get(`${DISLIKES_API}/movies`).then((response) => response);
