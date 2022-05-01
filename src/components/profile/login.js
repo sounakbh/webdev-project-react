@@ -27,7 +27,7 @@ export const Login = () => {
                 if (res.status === 200) {
                     dispatch({type: "all_bookmark", bookmarks: res.data})
                 }
-                navigate('/profile/mytuits');
+                navigate('/profile/movie-likes');
             })
     };
 
@@ -37,7 +37,7 @@ export const Login = () => {
                 if(res.status === 200){
                     dispatch({type: "all_likes", likedMovies: res.data})
                 }
-                navigate('/profile/mytuits');
+                navigate('/profile/movie-likes');
             })
     };
 
@@ -47,7 +47,7 @@ export const Login = () => {
                 if(res.status === 200){
                     dispatch({type: "all_dislikes", dislikedMovies: res.data})
                 }
-                navigate('/profile/mytuits');
+                navigate('/profile/movie-likes');
             })
     };
 

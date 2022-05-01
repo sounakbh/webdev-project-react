@@ -6,15 +6,15 @@ function Navigation() {
   const {pathname} = useLocation();
   // console.log(location.pathname);
   const links = [
-    {label: 'Tuiter', icon: 'fa-square-t', path: '/tuiter'},
+    {label: 'Film Forum', icon: 'fa-clapperboard', path: '/home'},
     {label: 'Home', icon: 'fa-home', path: '/home'},
     {label: 'Explore', icon: 'fa-hashtag', path: '/explore'},
     {label: 'Notifications', icon: 'fa-bell', path: '/notifications'},
     {label: 'Messages', icon: 'fa-envelope', path: '/messages'},
     {label: 'Bookmarks', icon: 'fa-bookmark', path: '/bookmarks'},
     {label: 'Lists', icon: 'fa-list', path: '/lists'},
-    {label: 'Profile', icon: 'fa-user', path: '/profile/mytuits'},
-    {label: 'More', icon: 'fa-circle-ellipsis', path: '/more'},
+    {label: 'Profile', icon: 'fa-user', path: '/profile/movie-likes'},
+    {label: 'Manage Users', icon: 'fa-circle-ellipsis', path: '/more'},
     {label: 'Login', icon: 'fa-user', path: '/login'},
     {label: 'Signup', icon: 'fa-user', path: '/signup'},
   ]

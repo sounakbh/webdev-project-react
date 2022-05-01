@@ -54,7 +54,6 @@ const PublicProfile = () => {
                 </b>
               </div>
               <br />
-              <div style={{ fontSize: "15px" }}>52 Tweets</div>
             </div>
           </div>
           <div className="row" style={{ position: "relative" }}>
