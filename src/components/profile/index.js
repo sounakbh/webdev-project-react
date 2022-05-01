@@ -62,38 +62,6 @@ const Profile = () => {
           <ul className="mt-4 nav nav-pills nav-fill">
             <li className="nav-item">
               <Link
-                to="/profile/mytuits"
-                className={`nav-link ${
-                  location.pathname.indexOf("mytuits") >= 0 ? "active" : ""
-                }`}
-              >
-                Tuits
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/profile/tuits-and-replies"
-                className={`nav-link ${
-                  location.pathname.indexOf("tuits-and-replies") >= 0
-                    ? "active"
-                    : ""
-                }`}
-              >
-                Tuits & replies
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/profile/media"
-                className={`nav-link ${
-                  location.pathname.indexOf("media") >= 0 ? "active" : ""
-                }`}
-              >
-                Media
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
                 to="/profile/movie-likes"
                 className={`nav-link ${
                   location.pathname.indexOf("movie-likes") >= 0 ? "active" : ""

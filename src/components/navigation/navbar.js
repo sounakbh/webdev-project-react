@@ -6,24 +6,29 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const roleId = useSelector(state => state.userReducer.roleId);
   
-  let links = [{ label: "Home", icon: "fa-home", path: "/home" },
-    { label: "Explore", icon: "fa-hashtag", path: "/explore" },{label: "Login", icon: "fa-user", path: "/login" },
+  let links = [
+      { label: "Home", icon: "fa-home", path: "/home" },
+    { label: "Explore", icon: "fa-hashtag", path: "/explore" },
+      {label: "Login", icon: "fa-user", path: "/login" },
     { label: "Signup", icon: "fa-user", path: "/signup" }]
     
   if (roleId === 0 || roleId === 1) {
-      links = [{ label: "Home", icon: "fa-home", path: "/home" },
+      links = [
+          { label: "Home", icon: "fa-home", path: "/home" },
           { label: "Explore", icon: "fa-hashtag", path: "/explore" },
-          { label: "Profile", icon: "fa-user", path: "/profile/mytuits" }];
+          { label: "Profile", icon: "fa-user", path: "/profile/movie-likes" }];
   } else if (roleId === 2) {
-      links = [{ label: "Home", icon: "fa-home", path: "/home" },
+      links = [
+          { label: "Home", icon: "fa-home", path: "/home" },
           { label: "Explore", icon: "fa-hashtag", path: "/explore" },
-          { label: "Profile", icon: "fa-user", path: "/profile/mytuits" },
-          { label: "More", icon: "fa-circle-ellipsis", path: "/more" }]
+          { label: "Profile", icon: "fa-user", path: "/profile/movie-likes" },
+          { label: "Manage Users", icon: "fa-circle-ellipsis", path: "/more" }]
   }
   
     return (
     <div className="ttr-navigation">
       <nav className="navbar navbar-light bg-light">
+          <span className="navbar-brand"><i className="fa fa-clapperboard"></i><b> Film Forum</b></span>
         {links.map((link, ndx) => {
           return (
             <span
