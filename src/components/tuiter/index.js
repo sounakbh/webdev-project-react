@@ -28,7 +28,13 @@ import userReducer from "../reducers/user-reducer";
 import MovieDetailPage from "../explore/movieDetailPage";
 
 const store = createStore(
-  combineReducers({ movieidReducer, bookmarkReducer, userReducer, movieLikeReducer, movieDislikeReducer}),
+  combineReducers({
+    movieidReducer,
+    bookmarkReducer,
+    userReducer,
+    movieLikeReducer,
+    movieDislikeReducer,
+  }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
@@ -58,7 +64,10 @@ function Tuiter() {
               <Route path="/lists" element={<Lists />} />
               <Route path="/public-profile/:uid" element={<PublicProfile />} />
               <Route path="/profile/*" element={<Profile />} />
-              <Route path="/profile/edit" element={<EditProfile />} />
+              <Route
+                path="/profile/edit-profile/:uid"
+                element={<EditProfile />}
+              />
               <Route path="/more" element={<More />} />
               <Route path="/tuit/:tid" element={<TuitScreen />} />
             </Routes>

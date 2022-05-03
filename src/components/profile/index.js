@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MyTuits from "./my-tuits";
 import {
   Link,
   Route,
@@ -8,10 +7,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import * as service from "../../services/security-service";
-import TuitsAndReplies from "./tuits-and-replies";
-import Media from "./media";
-import MyLikes from "./my-likes";
-import MyDislikes from "./my-dislikes";
 import Bookmarks from "../bookmarks";
 import MyMovieLikes from "./my-movieLikes";
 import MyMovieDislikes from "./my-movieDislikes";
@@ -35,6 +30,7 @@ const Profile = () => {
   useEffect(async () => {
     try {
       const user = await service.profile();
+      console.log("Profile service is called!");
       setProfile(user);
     } catch (e) {
       navigate("/login");
@@ -116,13 +112,30 @@ const Profile = () => {
                 />
               </div>
               <div className="mt-2" style={{ boder: "1px solid red" }}>
+                {/* <button> */}
                 <button
+                  onClick={() =>
+                    navigate(`/profile/edit-profile/${profile._id}`)
+                  }
+                  className="btn btn-large btn-light border border-secondary fw-bolder rounded-pill fa-pull-right"
+                >
+                  Edit profile
+                </button>
+                {/* <Link
+                  to="/profile/edit-profile"
+                  className="btn btn-large btn-light border border-secondary fw-bolder rounded-pill fa-pull-right"
+                >
+                  Edit profile
+                </Link> */}
+                {/* </button> */}
+                {/* <button
                   type="button"
+                  onClick={() => }
                   className="btn btn-block btn-outline-dark rounded-pill"
                   style={{ float: "right" }}
                 >
                   <b>Edit Profile</b>
-                </button>
+                </button> */}
                 <button
                   onClick={logout}
                   className="float-end btn btn-warning rounded-pill"

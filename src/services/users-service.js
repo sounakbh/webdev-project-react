@@ -18,6 +18,11 @@ export const findUserById = (uid) =>
 export const deleteUser = (uid) =>
   axios.delete(`${USERS_API}/${uid}`).then((response) => response.data);
 
+export const updateUser = (uid, updatedUser) =>
+  axios
+    .put(`${USERS_API}/${uid}`, updatedUser)
+    .then((response) => response.data);
+
 export const deleteUsersByUsername = (username) =>
   axios
     .get(`${USERS_API}/username/${username}/delete`)

@@ -1,113 +1,147 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { findUserById, updateUser } from "../../services/users-service";
 
 const EditProfile = () => {
-    return(
-      <div className="ttr-edit-profile">
-          <div className="border border-bottom-0">
-              <Link to="/profile" className="btn btn-light rounded-pill fa-pull-left fw-bolder mt-2 mb-2 ms-2">
-                  <i className="fa fa-close"></i>
-              </Link>
-              <Link to="/profile" className="btn btn-dark rounded-pill fa-pull-right fw-bolder mt-2 mb-2 me-2">
-                  Save
-              </Link>
-              <h4 className="p-2 mb-0 pb-0 fw-bolder">Edit profile</h4>
-              <div className="mb-5 position-relative">
-                  <img className="w-100" src="../images/nasa-profile-header.jpg"/>
-                  <div className="bottom-0 left-0 position-absolute">
-                      <div className="position-relative">
-                          <img className="position-relative ttr-z-index-1 ttr-top-40px ttr-width-150px"
-                               src="../images/nasa-3.png"/>
-                      </div>
-                  </div>
-              </div>
+  const [profile, setProfile] = useState({});
+  const { uid } = useParams();
+  const defaultProfile = {
+    username: "sounakbh",
+    password: "hellopassword",
+    email: "sounakbh@gmail.com",
+    firstName: "Sounak",
+    lastName: "Bhattacharya",
+    profilePhoto: "../../../images/day1-ipod.png",
+    headerImage: "../../../images/nasa-profile-header.jpg",
+    dateOfBirth: "7th July, 1998",
+    location: "Boston, MA",
+  };
+  const navigate = useNavigate();
+  useEffect(async () => {
+    try {
+      const user = await findUserById(uid);
+      setProfile(user);
+    } catch (e) {
+      navigate("/login");
+    }
+  }, []);
+
+  return profile ? (
+    <div className="row mt-2">
+      <div className="col-3"></div>
+      <div className="col-6">
+        <div className="row">
+          <div
+            className="col-1"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: "30px",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/tuiter/")}
+          >
+            &#8592;
           </div>
-          <form action="profile.html">
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="username">Username</label>
-              <input id="username" title="Username" readOnly
-                     className="p-0 form-control border-0"
-                     placeholder="alan" value="alan"/>
+          <div className="col-11" style={{ fontSize: "0" }}>
+            <div style={{ fontSize: "30px", height: "35px", color: "black" }}>
+              <b>Edit Profile</b>
             </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="first-name">First name</label>
-              <input id="first-name"
-                     className="p-0 form-control border-0"
-                     placeholder="Alan"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="last-name">Last name</label>
-              <input id="last-name"
-                     className="p-0 form-control border-0"
-                     placeholder="Turin"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="bio">Bio</label>
-              <textarea
-                className="p-0 form-control border-0"
-                id="bio"></textarea>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="date-of-birth">Date of birth</label>
-              <input id="date-of-birth"
-                     className="p-0 form-control border-0"
-                     type="date" value="2003-01-02"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="email">Email</label>
-              <input id="email" placeholder="alan@cam.ac.uk"
-                     className="p-0 form-control border-0"
-                     type="email"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label htmlFor="password">Reset password</label>
-              <input id="password"
-                     className="p-0 form-control border-0"
-                     type="password"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label for="photo">Profile photo</label>
-              <input id="photo"
-                     className="p-0 form-control border-0"
-                     type="file"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label for="header">Header image</label>
-              <input id="header"
-                     className="p-0 form-control border-0"
-                     type="file"/>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              <label for="account">Select account</label>
-              <select
-                className="p-0 form-control border-0"
-                id="account">
-                  <option>Personal account</option>
-                  <option selected>Academic account</option>
-              </select>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              Marital status
-              <input id="married"
-                     type="radio" name="marital"/>
-              <label for="married">Married</label>
-              <input id="single" type="radio"
-                     checked name="marital"/>
-              <label for="single">Single</label>
-            </div>
-            <div className="border border-secondary rounded-3 p-2 mb-3">
-              Topics of interest
-              <input id="space" type="checkbox"
-                     checked name="topics"/>
-              <label for="space">Space</label>
-              <input id="energy" type="checkbox" checked
-                     name="topics"/>
-              <label for="energy">Energy</label>
-              <input id="politics" type="checkbox"
-                     name="topics"/>
-              <label for="politics">Politics</label>
-            </div>
-        </form></div>
-    );
+            <br />
+          </div>
+        </div>
+        <div
+          className="row"
+          style={{
+            position: "relative",
+          }}
+        >
+          <img
+            src={
+              profile.headerImage
+                ? profile.headerImage
+                : defaultProfile.headerImage
+            }
+            style={{ height: "250px", objectFit: "cover" }}
+            alt="Banner"
+          />
+          <img
+            src={
+              profile.profilePhoto
+                ? profile.profilePhoto
+                : defaultProfile.profilePhoto
+            }
+            alt=""
+            style={{
+              width: "150px",
+              borderRadius: "50%",
+              objectFit: "cover",
+              position: "absolute",
+              bottom: -55,
+              left: 20,
+            }}
+          />
+        </div>
+
+        <div style={{ marginBottom: "100px" }}>
+          <button
+            onClick={() => {
+              updateUser(uid, profile);
+              navigate("/profile/movie-likes");
+            }}
+            className="btn btn-large btn-warning border border-secondary fw-bolder rounded-pill fa-pull-right mt-2"
+          >
+            Save Changes
+          </button>
+        </div>
+        <input
+          required
+          className="mb-2 form-control"
+          defaultValue={profile.firstName}
+          onChange={(e) =>
+            setProfile({ ...profile, firstName: e.target.value })
+          }
+          placeholder="First Name"
+        />
+        <input
+          className="mb-2 form-control"
+          defaultValue={profile.lastName}
+          onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
+          placeholder="Last Name"
+        />
+        <input
+          className="mb-2 form-control"
+          defaultValue={profile.username}
+          onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+          placeholder="Username"
+        />
+        <input
+          className="mb-2 form-control"
+          defaultValue={profile.email}
+          onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+          placeholder="Email"
+          type="email"
+        />
+        <input
+          className="mb-2 form-control"
+          defaultValue={profile.dateOfBirth?.substr(0, 10)}
+          onChange={(e) =>
+            setProfile({ ...profile, dateOfBirth: e.target.value })
+          }
+          placeholder="Date of Birth"
+          type="date"
+        />
+        <input
+          className="mb-2 form-control"
+          defaultValue={profile.location}
+          onChange={(e) => setProfile({ ...profile, location: e.target.value })}
+          placeholder="Location"
+        />
+      </div>
+      <div className="col-3"></div>
+    </div>
+  ) : (
+    <></>
+  );
 };
 export default EditProfile;
