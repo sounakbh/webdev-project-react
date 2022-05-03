@@ -85,8 +85,8 @@ const EditProfile = () => {
 
         <div style={{ marginBottom: "100px" }}>
           <button
-            onClick={() => {
-              updateUser(uid, profile);
+            onClick={async () => {
+              await updateUser(uid, profile);
               navigate("/profile/movie-likes");
             }}
             className="btn btn-large btn-warning border border-secondary fw-bolder rounded-pill fa-pull-right mt-2"

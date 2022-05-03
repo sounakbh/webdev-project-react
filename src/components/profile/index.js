@@ -11,6 +11,8 @@ import Bookmarks from "../bookmarks";
 import MyMovieLikes from "./my-movieLikes";
 import MyMovieDislikes from "./my-movieDislikes";
 import { useDispatch } from "react-redux";
+import { findUserById } from "../../services/users-service";
+
 const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +31,9 @@ const Profile = () => {
   const dispatch = useDispatch();
   useEffect(async () => {
     try {
-      const user = await service.profile();
+      const userProfile = await service.profile();
+      const userId = userProfile._id;
+      const user = await findUserById(userId);
       console.log("Profile service is called!");
       setProfile(user);
     } catch (e) {
